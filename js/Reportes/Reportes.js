@@ -4,28 +4,6 @@
 //inicia document ready
 $(document).ready(function(e) {
   
-function supports_html5_storage() {
-		  try {
-			return 'localStorage' in window && window['localStorage'] !== null;
-		  } catch (e) {
-			return false;
-		  }
-		}
-if(supports_html5_storage()){	
-	var us;
-	us=window.localStorage.getItem('usuarioARH');
-	if(us!="..."){
-		if(us[6]=="R"){				
-				ListarFuncionarios();			
-		}
-		else
-		{
-				$("#divBuscarFuncionarios").addClass("collapse");		
-				alert("Cargar datos del usuario")	
-		}
-	}
-}			  
-  
 $(window).resize(function() {
     if(this.resizeTO) clearTimeout(this.resizeTO);
     this.resizeTO = setTimeout(function() {
@@ -36,6 +14,8 @@ $(window).resize(function() {
 $(window).bind('resizeEnd', function() {
      funcionModificarTamañoVentana();  
 });  
+	
+ListarFuncionarios();	
 	
 funcionModificarTamañoVentana();	
 	

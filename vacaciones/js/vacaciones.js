@@ -20,23 +20,22 @@ function ActualizarFuncionio(){
 		  data:parametros,// "datos={"pID:0"}"
 		  url:'php/GetPeriodosFunc.php', 
 		  success:function(respuesta){
-				$("#tbPeriodosCuerpo").html(respuesta);				
-				
+				$("#tbPeriodosCuerpo").html(respuesta);	
 				var cont=0;
-					//Recorre la tabla de periodos y crea un vector y total de dias disponibles
-					//Estos dias seran gastados desde los periodos mas antiguos hasta los mas viejos
-					$('#tbPeriodosCuerpo tr td').each(function(){
-					 if($(this).attr("name")=="dd")
-					 {
-						 total[0]+=parseInt($(this).text());
-						 VecDiasDispo[cont]=parseInt($(this).text());
-					 	 cont=(parseInt(cont)+1);
-					 }
-					 if($(this).attr("name")=="dg")
-					 {
-						 total[1]+=parseInt($(this).text());
-					 }
-					});					
+				//Recorre la tabla de periodos y crea un vector y total de dias disponibles
+				//Estos dias seran gastados desde los periodos mas antiguos hasta los mas viejos
+				$('#tbPeriodosCuerpo tr td').each(function(){
+				 if($(this).attr("name")=="dd")
+				 {
+					 total[0]+=parseInt($(this).text());
+					 VecDiasDispo[cont]=parseInt($(this).text());
+					 cont=(parseInt(cont)+1);
+				 }
+				 if($(this).attr("name")=="dg")
+				 {
+					 total[1]+=parseInt($(this).text());
+				 }
+				});					
 				$("#tdTotDispo").text(total[0])
 				$("#tdTotGosad").text(total[1])		
 				//alert(VecDiasDispo[0]+" "+VecDiasDispo[1]+" "+VecDiasDispo[2])			

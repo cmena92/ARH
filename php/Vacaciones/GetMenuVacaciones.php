@@ -11,62 +11,100 @@
 			if($_POST['Permiso']=="R"){
 				echo "
 				<div class='col-md-2 '> 
-					<div class='thumbnail'>
-						<img src='img/imagenes del sitio/normal.png' alt='300x200' style='max-width:128px !important; max-height:128px !important;' >
+					<div class='thumbnail text-center'>
+						<a href='vacaciones/solicitudNormal.html' onclick='funcionModificarTamañoVentana();'>
+                        <img src='img/imagenes del sitio/cocktail.png' alt='300x200' style='max-width:128px !important; max-height:128px !important;' >
 						<div class='caption'>
-						  <a href='vacaciones/solicitudNormal.html' onclick='funcionModificarTamañoVentana();'>SOLICITUD NORMAL</a>												
+						  SOLICITUD NORMAL</a>												
 						</div>
-				  </div>
-				</div>
-				<div class='col-md-2'>
-					<div class='thumbnail'>
-						<img src='img/imagenes del sitio/calendario.ico' alt='300x200' >
-						<div class='caption'>
-							<a href='vacaciones/EtiquetarDias.html'>ASUETOS Y FERIADOS</a>							
-						</div>
-				  </div>
-				</div>
-				<div class='col-md-2'>
-					<div class='thumbnail'>
-						<img alt='300x200' src='img/imagenes del sitio/incapacidad.png' style='max-width:128px !important; max-height:128px !important;' >
-						<div class='caption'>
-							<a>INCAPACIDADES (Pendiente)</a>							
-					  </div>
-				  </div>
-				</div>
-				<div class='col-md-2'>
-					<div class='thumbnail'>
-						<img alt='300x200' src='img/imagenes del sitio/adelantadas.ico' style='max-width:128px !important; max-height:128px !important;'>
-						<div class='caption'>
-							<a>VACACIONES ADELANTADAS (Pendiente)</a>							
-					  </div>
 				  </div>
 				</div>				
 				<div class='col-md-2'>
-					<div class='thumbnail'>
-						<img alt='300x200' src='img/imagenes del sitio/varios.png' style='max-width:128px !important; max-height:128px !important;'>
-						<div class='caption'>
-							<a>SOLICITUDES MULTIPLES (Pendiente / Opcional)</a>							
+					<div class='thumbnail text-center'>
+						<a href='vacaciones/historialSolicitudes.html'>
+                        <img alt='300x200' src='img/imagenes del sitio/varios.png' style='max-width:128px !important; max-height:128px !important;'>
+						<div class='caption'>							
+							HISTORICO DE SOLICITUDES</a>							
 					  </div>
 				  </div>
 				</div>
+				<div class='col-md-2'>
+					<div class='thumbnail text-center'>
+						<a  href='vacaciones/EtiquetarDias.html'>
+                        <img src='img/imagenes del sitio/calendario.ico' alt='300x200' >
+						<div class='caption'>
+							ASUETOS Y FERIADOS</a>							
+						</div>
+				  </div>
+				</div>
+                
 				 <div class='col-md-2'>
-					<div class='thumbnail'>
+					<div class='thumbnail text-center'>
+                    <a href='vacaciones/periodos.html'>
 						<img alt='300x200' src='img/imagenes del sitio/historial0.png' style='max-width:128px !important; max-height:128px !important;'>
 						<div class='caption'>
-							<a href='vacaciones/periodos.html'>PERIODOS</a>							
+							PERIODOS</a>							
 					  </div>
 				  </div>
+				</div>
+                
+                  <div class='col-md-2'>
+					<div class='thumbnail text-center'>
+						<a >
+                        <img alt='300x200' src='img/imagenes del sitio/adelantadas.ico' style='max-width:128px !important; max-height:128px !important;'>
+						<div class='caption'>
+							VACACIONES ADELANTADAS (Pendiente)</a>							
+					  </div>
+				  </div>
+                  </div>
+                  
+				<div class='col-md-2'>
+					<div class='thumbnail text-center'>
+						<a>
+                        <img alt='300x200' src='img/imagenes del sitio/incapacidad.png' style='max-width:128px !important; max-height:128px !important;' >
+						<div class='caption'>
+							INCAPACIDADES (Pendiente)</a>							
+					  </div>
+				  </div>
+				</div>
 				";
 			}else
 			{
 			echo "
 				<div class='col-md-2 '> 
-					<div class='thumbnail'>
-						<img src='img/imagenes del sitio/normal.png' alt='300x200' style='max-width:128px !important; max-height:128px !important;' >
+					<div class='thumbnail text-center'>
+						<a href='vacaciones/solicitudNormal.html' onclick='funcionModificarTamañoVentana();'>
+                        <img src='img/imagenes del sitio/cocktail.png' alt='300x200' style='max-width:128px !important; max-height:128px !important;' >
 						<div class='caption'>
-						  <a href='vacaciones/solicitudNormal.html' onclick='funcionModificarTamañoVentana();'>SOLICITUD NORMAL</a>												
+						  SOLICITUD NORMAL</a>												
 						</div>
+				  </div>
+				</div>				
+				<div class='col-md-2'>
+					<div class='thumbnail text-center'>
+						<a href='vacaciones/historialSolicitudes.html'>
+                        <img alt='300x200' src='img/imagenes del sitio/varios.png' style='max-width:128px !important; max-height:128px !important;'>
+						<div class='caption'>							
+							HISTORICO DE SOLICITUDES</a>							
+					  </div>
+				  </div>
+				</div>
+				<div class='col-md-2'>
+					<div class='thumbnail text-center'>
+						<a  href='vacaciones/EtiquetarDias.html'>
+                        <img src='img/imagenes del sitio/calendario.ico' alt='300x200' >
+						<div class='caption'>
+							ASUETOS Y FERIADOS</a>							
+						</div>
+				  </div>
+				</div>
+				<div class='col-md-2'>
+					<div class='thumbnail text-center'>
+						<a>
+                        <img alt='300x200' src='img/imagenes del sitio/incapacidad.png' style='max-width:128px !important; max-height:128px !important;' >
+						<div class='caption'>
+							INCAPACIDADES (Pendiente)</a>							
+					  </div>
 				  </div>
 				</div>
 				";

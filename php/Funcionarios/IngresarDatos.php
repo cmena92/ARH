@@ -89,17 +89,6 @@ if(isset($_POST['pNombre']) && isset($_POST['pApelli']) && isset($_POST['pSeApel
 			  }
 			}
 			echo $salida;	
-		}		
-		else
-		{
-		 $error_code = mysqli_errno($conexion);	
-		 
-		if($error_code==1062)
-			echo mysqli_error($conexion);
-		else
-			echo -2;//"NO SE INGRESO EL FUNCIONARIO DE FORMA CORRECTA";
-		
-		exit;
 		}	
 	}
 	//cerrar la conexion

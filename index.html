@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>ARH, Administrador de Recursos Humanos de ACLAP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/Inicio/inicio.css" rel="stylesheet">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="icon.ico"> 
+  <link rel="stylesheet" href="css/jquery.remodal.css"> 
+  
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="text/javascript" src="js/Inicio/arh.js"></script>
+  <script type="text/javascript" src="js/jquery.remodal.js"></script>
+  <script type="text/javascript" src="js/Acceso/Acceso.js" ></script>
+
+</head>
+
+<body>
+ <div class="container">
+	  <span class="col-md-2 column"><img src="img/imagenes del sitio/logo.PNG" alt="140x140"  class="img-thumbnail"></span>
+	  <div class="col-md-2 column"></div>
+		<!--  *********************************************************************          -->
+		<div class="col-md-10 column">
+		  <h1 class="page-header"> ARH <small>Administrador de Recurso Humano ACLAP-SINAC</small></h1>
+								<p>&nbsp;</p>			           
+				</div>
+		<!--  *********************************************************************          -->     
+	   <div class="row clearfix"> 
+		<div class="col-md-12 column text-right"> 
+						<strong>
+						<a id="aIngres" class="text-success" href="#venModaAcceso" data-toggle="modal">INGRESAR </a>		
+						<a id="aCuenta"  class="text-warning collapse" href="#venModaCuenta" data-toggle="modal" >CAMBIAR CONTRASEÑA </a>				
+						<a id="aCerrar"  class="text-danger collapse" href="index.html" onClick="CerrarSecion();">CERRAR </a>
+							
+						</strong>	
+						<div class="modal fade" id="venModaAcceso" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>									
+									</div>
+									<div class="modal-body">
+										 <form role="form">                    
+											<div class="form-group">
+												 <label for="txtNombre">Usuario</label><input type="text" class="form-control" id="txtUsuario"  />
+											</div>                        
+											<div class="form-group">
+												 <label for="txtCotrase">Contraseña</label><input type="password" class="form-control" id="txtCotrase" />
+											</div> 
+											<div class="form-group" id="txtMensaje">													 
+											</div> 
+											<div class="collapse" id="txtMensajeAyudaRestablecer">
+												<p for="aPedirRestablecer">Si no recuerda su contraseña, porfavor visite el departamento de RECURSOS HUMANOS para que la REINICIEN.</p>											
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										 <button type="button" class="btn btn-default" data-dismiss="modal">VOLVER</button> 
+										 <button type="button" class="btn btn-primary" onClick="validar();">ENVIAR</button>
+									</div>
+								</div>
+								
+							</div>
+							
+						</div>
+						
+						<div class="modal fade" id="venModaCuenta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>									
+									</div>
+									<div class="modal-body">
+										 <form role="form">       
+											<div class="form-group">
+												 <label for="txtCotrase">Nueva Contraseña</label><input type="password" class="form-control" id="txtCotraseCambio"/>
+											</div> 
+											<div class="form-group">
+												 <label for="txtCotrase">Confirmar Contraseña</label><input type="password" class="form-control" id="txtCotraseConfir"/>
+											</div> 
+											<div id="mensajeCambiarContra" class="form-group">
+												 
+											</div> 
+										</form>
+									</div>
+									<div class="modal-footer">
+										 <button type="button" class="btn btn-default" data-dismiss="modal">VOLVER</button> 
+										 <button type="button" class="btn btn-primary" onClick="CambiarContrase();">ENVIAR</button>
+									</div>
+								</div>							
+							</div>						
+						</div>
+		</div>
+	  
+	  <!--**********************************************************************-->
+	  <div class="row clearfix"> 
+		<div id="barNav" class="nav navbar-default">
+		   
+				 <div class="navbar-header">
+		<button id="btnEspecial" type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-ex1-collapse" onClick="actualizar();">
+		  <span class="sr-only"></span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#">MENÚ DE ARH</a>
+	  </div>
+	 
+	  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+		   otro elemento que se pueda ocultar al minimizar la barra -->
+	<div class="collapse navbar-collapse navbar-ex1-collapse">
+	   <ul id="nav" class="nav nav-tabs">
+					<li class='active' >
+						<a href='inicio.html' class="dropdown-toggle">ARH</a>
+					</li>
+					<li >
+						<a href='ayuda.html' class="dropdown-toggle">AYUDA</a>
+					</li>
+					<!--id para frenar un ciclo-->
+					<li id='ultimo' class="dropdown-toggle collapse" >
+						<a href='nosotros.html'>NOSOTROS</a>				
+					</li>
+		</ul>
+	  </div>
+			  
+		</div>
+	  </div>
+		  
+	   <div class="row clearfix">    
+		 <div class="col-md-12 column" >
+			<div id="divPrincipal" class="classDivIf">
+			<iframe id="fPrincipal"  src="inicio.html" frameborder="0" scrolling="no" >
+			</iframe>
+			</div>
+		 </div> 
+	   </div>
+	 <!--  **********************************************************          -->   
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+			  <blockquote>
+			  <p>&nbsp;</p>
+			  <p>&nbsp;</p>
+			  <p>&nbsp;</p>
+				<p>ARH es un proyecto con el objetivo de facilitar el control de personal y la solicitud de vacaciones para el departamento de RH de SINAC-ACLAP. </p> 
+				 <p><small>Crisman Andrey Mena Gomez - Manuel Sanabria Murillo UNA-PZ 2014</small></p>
+				<p>&nbsp;</p>
+			  </blockquote>
+			</div>
+		</div>
+	 <!-- *********************************** -->   
+	</div>
+
+	<!--Ventanas modales-->
+	<div id="vmModalPrincipal" class="remodal" data-remodal-id="vmModalPrincipal">
+	  
+	</div>
+</div>
+</body>
+</html>
+

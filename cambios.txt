@@ -1,5 +1,0 @@
-nombre de vacaciones
-ajuste de pantallas de iframe
-mensaje de contraseña-> procesando la autenticacion
-
-

@@ -1,53 +1,50 @@
 
-var solicitudConsultada;
 var total=[0,0];
-var IdFuncionario;
 Jornada="";
 VecDiasDispo = [];
-var IdUsuario;	
-var PerioConsu;
-var Accion;
-var FilaCons=0;
-var idSolicitudConsultada=0;
-var Solicitudes;
+var IdSol=0;
+
+//Variables de Consulta
 var usuario;
-
-function EliminarSolicitud(pFilaSol){
-		if(Solicitudes.BoletasPorSoli[pFilaSol-1]=="No hay boletas para esta solicitud")
-		{			
-			var parametros = '{"pAccion":"ELIMINAR","pIdSol":"'+idSolicitudConsultada+'"}';			 
-			 $.ajax({
-				  async:true,	
-				  type:'POST', 
-				  dataType:"json",  
-				  data:"Parametros="+parametros,
-				  url:'php/solicitudes_boletas/Solicitudes.php', 
-				  success:function(respuesta){
-					  if(respuesta.CodigoRespuesta="000")
-					  {
-						  	alert("Bien")
-							funcionModificarTamañoVentana();
-							FuncSolicitudes("LISTAR",usuario[6]);
-					  }
-					},
-				  error:function(respuesta){
-						alert("Error al listar solicitudes");
-					}
-				});	
-		}
-		else 
-			alert("La solicitud contiene boletas")
-	}
-	
-function ImprimirBoleta(pFilaSol){
-	
-	}
-	
-function EliminarBoleta(){
-	
-	}
-
-function FuncSolicitudes(pAccion,pRol){
+var IdUsuario;
+var IdFuncionario;
+var FilaCons=0;	
+var idSolicitudConsultada=0;
+var ObjetoDeSolicitudes;
+function ListarSolicitudes(){		
+		var parametros = '{"pIdFunc":"'+IdFuncionario+ '","pRol":"'+usuario[6]+'"}'; 
+		 $.ajax({
+			  async:true,	
+			  type:'POST', 
+			  dataType:"json",  
+			  data:"Parametros="+parametros,
+			  url:'php/solicitudes_boletas/GetSolicitudes.php', 
+			  success:function(respuesta){		
+					ObjetoDeSolicitudes=respuesta;
+					$("#tbSolicitudes").html(respuesta.CabezSolicitudes);
+					$("#tbSolicitudesCuerpo").html(respuesta.ListaSolicitudes);
+					
+					if(respuesta.ListaSolicitudes!=""){
+						var cont=0;
+							//Recorre la tabla de periodos y crea un vector y total de dias disponibles
+							//Estos dias seran gastados desde los periodos mas antiguos hasta los mas viejos
+							$('#tbSolicitudesCuerpo tr td').each(function(){
+							 if($(this).attr("name")=="ds")
+							 {
+								 total[0]+=parseInt($(this).text());
+								 VecDiasDispo[cont]=parseInt($(this).text());
+								 cont=(parseInt(cont)+1);
+							 }
+							});					
+						$("#tdTotalSoli").text(total[0])	
+					}					
+					funcionModificarTamañoVentana();
+				},
+			  error:function(respuesta){
+					alert("Error al listar solicitudes");
+				}
+			});	
+	/*
 	var parametros = '{"pIdFunc":"'+IdFuncionario+ '","pAccion":"'+pAccion+'","pRol":"'+pRol+'"}'; // 'elemento==13
 	 $.ajax({
 		  async:true,	
@@ -80,30 +77,103 @@ function FuncSolicitudes(pAccion,pRol){
 			}
 		});	
 						funcionModificarTamañoVentana();
+	*/
 	}
 
-
-function SeleccionarSolicitud(pFila){
-	$("#tbBoletas").html(Solicitudes.CabezBoletas)
+function SeleccionarSolicitud(pIdSol){
+	idSolicitudConsultada=pIdSol;
+	$("#divSolCons").html(ObjetoDeSolicitudes.Solicitudes[FilaCons].FichaTecnica);
 	
-	$("#tbCuerpoBoletas").html(Solicitudes.BoletasPorSoli[pFila-1]);
-	var cont=0;
-	total[1]=0;
-	$("#tdTotGosad").text(total[1])	
-	$('#tbCuerpoBoletas tr td').each(function(){
-	 if($(this).attr("name")=="dg")
-	 {
-		 total[1]+=parseInt($(this).text());
-		 VecDiasDispo[cont]=parseInt($(this).text());
-		 cont=(parseInt(cont)+1);
-	 }
-	});					
-	$("#tdTotGosad").text(total[1])
-	funcionModificarTamañoVentana();
+	var parametros = '{"pIdSol":"'+pIdSol+ '","pRol":"'+usuario[6]+'"}'; 
+		 $.ajax({
+			  async:true,	
+			  type:'POST', 
+			  dataType:"json",  
+			  data:"Parametros="+parametros,
+			  url:'php/solicitudes_boletas/GetBoletasXsolicitud.php', 
+			  success:function(respuesta){					
+					$("#tbBoletas").html(respuesta.CabezBoletas)
+					$("#tbCuerpoBoletas").html(respuesta.ListaBoletas);
+					$("#btnBorrSoli").removeClass("collapse");
+					var cont=0;
+					total[1]=0;
+					$("#tdTotGosad").text(total[1])	
+					$('#tbCuerpoBoletas tr td').each(function(){
+					 if($(this).attr("name")=="dg")
+					 {
+						 total[1]+=parseInt($(this).text());
+						 VecDiasDispo[cont]=parseInt($(this).text());
+						 cont=(parseInt(cont)+1);
+					 }
+					});					
+					$("#tdTotGosad").text(total[1])
+					
+					funcionModificarTamañoVentana();
+				},
+			  error:function(respuesta){
+					alert("Error al listar solicitudes");
+				}
+			});		
+	
 }
 
+function EliminarObjetos(pTipo,pId){	
+	if(confirm("¿Realmente desea borrar el registro?")){
+		 var parametros = '{"pId":"'+pId+'","pTipo":"'+pTipo+'"}'; 
+		 $.ajax({
+			  async:true,	
+			  type:'POST', 
+			  dataType:"json",  
+			  data:"Parametros="+parametros,
+			  url:'php/solicitudes_boletas/EliminarObjetos.php', 
+			  success:function(respuesta){	
+			  		SeleccionarSolicitud(idSolicitudConsultada);
+				},
+			  error:function(respuesta){
+					alert("Error al listar solicitudes");
+				}
+			});	
+		}
+	}
+	
+function EliminarSolici(){	
+	//alert("FC/"+FilaCons+"/Cant boletas/"+ObjetoDeSolicitudes.Solicitudes[FilaCons].CantBoletas)
+	if(ObjetoDeSolicitudes.Solicitudes[FilaCons].CantBoletas==0)
+		EliminarObjetos("SOLICITUD",idSolicitudConsultada)
+	else
+		alert("La solicitud no puede ser borrada, ya que posee boletas.")
+}
+	
+function EliminarBoleta(pFilaBol){		
+		var estado=BoletaConsul.Boletas[pFilaBol].Estado;
+		if(estado=="SOLICITADA")
+		{//alert("La boleta puede ser eliminada")	
+			EliminarObjetos("BOLETA",BoletaConsul.Boletas[pFilaBol].idBoleta);
+		}
+		else 
+			alert("La boleta ya esta en vigencia o vencida")
+	
+	}
+	
+		
+function ImprimirBoleta(pFilaSol){
+	
+	}
+	
 
-
+		
+function EliminarSolicitud(pFila){
+		
+		if(confirm("¿Realmente desea borrar el registro?")){
+			var estado=BoletaConsul.Boletas[pFilaBol].Estado;
+			if(estado=="SOLICITADA")
+			{//alert("La boleta puede ser eliminada")	
+				EliminarObjetos("BOLETA",BoletaConsul.Boletas[pFilaBol].idBoleta);
+			}
+			else 
+				alert("La boleta ya esta en vigencia o vencida")
+		}	
+	}
 //--------------------------------------------------------
 
 	
@@ -124,7 +194,7 @@ function SelectFuncPar(){
 		  url:'php/GetFuncionario.php', 
 		  success:function(respuesta){
 				$("#divFichaTecFuncio").html(respuesta);
-				FuncSolicitudes("LISTAR",usuario[6]);
+				ListarSolicitudes();
 				funcionModificarTamañoVentana();
 			},
 		  error:function(respuesta){
@@ -132,7 +202,7 @@ function SelectFuncPar(){
 			}
 		  });	
 				
-		FuncSolicitudes("LISTAR",usuario[6]);
+		ListarSolicitudes();
 		funcionModificarTamañoVentana();
 	}
 
@@ -170,7 +240,7 @@ $(document).ready(function(){
 				  url:'php/GetFuncionario.php', 
 				  success:function(respuesta){
 						$("#divFichaTecFuncio").html(respuesta);						
-						FuncSolicitudes("LISTAR",us[6]);
+						ListarSolicitudes();
 						funcionModificarTamañoVentana();						
 					},
 				  error:function(respuesta){
